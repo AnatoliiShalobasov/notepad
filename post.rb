@@ -5,23 +5,32 @@ class Post
     @text = nil
   end
 
-  def read_from_console
-    #todo
+  def self.post_types
+    [Memo, Link, Task]
   end
 
-  def save
-    file = File.new(file_path, "w:UTF-8")
+  def self.create(type_index)
+    return post_types[type_index].new
+  end
 
-    for item in strings do
-      file.puts(item)
-    end
-
-      file.close
+  def read_from_console
+    #todo
   end
 
   def to_strings
     #todo
   end
+
+  def save
+    file = File.new(file_path, "w:UTF-8") # открываем файл на запись
+
+    for item in to_strings do # идем по массиву строк, полученных из метода to_strings
+      file.puts(item)
+    end
+
+    file.close # закрываем
+  end
+
 
   def file_path
     current_path = File.dirname(__FILE__)
